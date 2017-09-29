@@ -1,0 +1,8 @@
+{% extends "housepoints/base.html" %}
+{% block content %}
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save" />
+</form>
+<p><a href="{% url 'housepoints:index' %}">Go Back</a></p>
+{% endblock %}

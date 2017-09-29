@@ -1,1 +1,22 @@
-<h1>Welcome to this simple app</h1>
+{% extends "housepoints/base.html" %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'housepoints/style.css' %}" />
+<div class="jumotron text-center">
+    <h1>House Points</h1>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <p>Firman: {% if valid_points.firman == None %}0{% else %}{{ valid_points.firman }}{% endif %}</p>
+        </div>
+        <div class="col-sm-4">
+            <p>Goodman: {% if valid_points.goodman == None %}0{% else %}{{ valid_points.goodman }}{% endif %}</p>
+        </div>
+        <div class="col-sm-4">
+            <p>Pantlin: {% if valid_points.pantlin == None %}0{% else %}{{ valid_points.pantlin }}{% endif %}</p>
+        </div>
+    </div>
+</div>
+<p><a href="{% url 'housepoints:addpoints' %}">Add Points</a></p>
+{% endblock %}

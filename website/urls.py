@@ -14,9 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import include, url
+from django.http import HttpResponseRedirect
 from django.contrib import admin
 
 urlpatterns = [
+    url(r'^$', lambda r: HttpResponseRedirect('housepoints/')),
     url(r'^housepoints/', include('housepoints.urls')),
     url(r'^admin/', admin.site.urls),
 ]
