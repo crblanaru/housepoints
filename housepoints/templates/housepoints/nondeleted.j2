@@ -1,0 +1,33 @@
+{% extends "housepoints/base.j2" %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'housepoints/style.css' %}" />
+<div class="panel panel-info">
+    <div class="panel-heading">List of all awarded points</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Firman</td>
+                <td>Goodman</td>
+                <td>Pantlin</td>
+                <td>Reason</td>                
+                <td>Date submitted</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for points in housepoints %}
+            <tr>
+                <td>{{points.firman}}</td>
+                <td>{{points.goodman}}</td>
+                <td>{{points.pantlin}}</td>
+                <td>{{points.shortreason}}</td>
+                <td>{{points.datesubmitted}}</td>
+            </tr>
+        {% empty %}
+        <tr><td>No points were ever added.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<a href="{% url 'housepoints:export' %}" target="_blank">Export all records</a>
+{% endblock %}

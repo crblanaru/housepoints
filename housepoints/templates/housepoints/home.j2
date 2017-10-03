@@ -1,0 +1,70 @@
+{% extends "housepoints/base.j2" %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'housepoints/style.css' %}" />
+<script type="text/javascript" src="{% static 'housepoints/js/numscroller.js' %}"></script>
+<style>
+@keyframes pulse_animation {
+	0% { transform: scale(1); }
+	30% { transform: scale(1); }
+	40% { transform: scale(1.08); }
+	50% { transform: scale(1); }
+	60% { transform: scale(1); }
+	70% { transform: scale(1.05); }
+	80% { transform: scale(1); }
+	100% { transform: scale(1); }
+}
+
+.pulse {
+	animation-name: pulse_animation;
+	animation-duration: 5000ms;
+	transform-origin:70% 70%;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+</style>
+{% if valid_points.firman != None and valid_points.firman != None and valid_points.firman != None %}
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <img class="pulse" data-src="{% static 'housepoints/images/eagle.png' %}" alt="" />
+			<br>
+            <p class="fontlarge">Firman: {% if valid_points.firman == None %}0{% else %}<span class='numscroller' data-min='0' data-max='{{ valid_points.firman }}' data-delay='1' data-increment='1'></span>{% endif %}</p>
+        </div>
+        <div class="col-sm-4">
+            <img class="pulse" data-src="{% static 'housepoints/images/bear.png' %}" alt="" />
+			<br>
+            <p class="fontlarge">Goodman: {% if valid_points.goodman == None %}0{% else %}<span  class='numscroller' data-min='0' data-max='{{ valid_points.goodman }}' data-delay='1' data-increment='1'></span>{% endif %}</p>
+        </div>
+        <div class="col-sm-4">
+            <img class="pulse" data-src="{% static 'housepoints/images/lion.png' %}" alt="" />
+			<br>
+            <p class="fontlarge">Pantlin: {% if valid_points.pantlin == None %}0{% else %}<span  class='numscroller' data-min='0' data-max='{{ valid_points.pantlin }}' data-delay='1' data-increment='1'></span>{% endif %}</p>
+        </div>
+    </div>
+
+</div>
+{% else %}
+<p>Please add some points first!</p>
+{% endif %}
+<script>
+[].forEach.call(document.querySelectorAll('img[data-src]'), function(img) {
+	img.setAttribute('src', img.getAttribute('data-src'));
+	img.onload = function() {
+		img.removeAttribute('data-src');
+	};
+});
+
+jQuery({tempval: 0}).animate({tempval: $('#pincranimate').val()}, {
+	duration: 1000,
+	easing:'swing', // can be anything
+	step: function() { // called on every step
+		// Update the element's text with rounded-up value:
+		$('#pincranimate').val(this.tempval);
+	}
+});
+</script>
+
+{% endblock %}

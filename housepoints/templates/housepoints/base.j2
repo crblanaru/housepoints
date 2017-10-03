@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>House Points</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <ul class="nav nav-tabs  nav-justified">
+        <li role="presentation" class="{% if request.path == '/housepoints/' %}active{% endif %}"><a href="{% url 'housepoints:index' %}">House Points</a></li>
+        <li role="presentation" class="{% if request.path == '/housepoints/addpoints' %}active{% endif %}"><a href="{% url 'housepoints:addpoints' %}">Add Points</a></li>
+        <li role="presentation" class="{% if request.path == '/housepoints/all' %}active{% endif %}"><a href="{% url 'housepoints:all' %}">List Points</a></li>
+    </ul>
+{% block content %}{% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+{% extends "housepoints/base.j2" %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'housepoints/style.css' %}" />
+<style type="text/css">
+div p label, input {
+    width: 99%;
+}
+
+p {
+    margin-left: 5px;
+}
+</style>
+<div class="panel panel-info">
+    <div class="panel-heading">Add a new set of points.</div>
+    <br>
+        <form action="" method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn btn-primary" type="submit" value="Add points" />
+        </form>
+    <br>    
+    </div>
+</div>
+{% endblock %}
