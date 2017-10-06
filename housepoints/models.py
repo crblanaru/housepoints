@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 from django.core.validators import MinValueValidator
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
 
 class AccademicYear(models.Model):
     """
@@ -40,3 +42,10 @@ class HousePoints(models.Model):
             self.datesubmitted,
             self.submitby
         ))
+    
+    def clean(self):
+        if self.pantlin + self.firman + self.goodman == 0:
+            raise ValidationError(_('You must enter at least one non-zero value.'))
+
+        if self.pantlin < 0 or self.goodman < 0 or self.firman < 0:
+            raise ValidationError(_('You are not allowed negative points.'))

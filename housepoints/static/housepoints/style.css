@@ -14,3 +14,7 @@ p.fontlarge {
     width: 100;
     text-align: center;
 }
+
+.errorlist {
+    background-color: red;
+}
