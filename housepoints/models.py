@@ -15,6 +15,18 @@ class AccademicYear(models.Model):
     def __str__(self):
         return(str(self.displayyear))
 
+    def clean(self):
+        if self.enddate < self.startdate:
+            raise ValidationError(_('The end date cannot be before the start date.'))
+
+        """
+        I realise that this is a loose valid range checker, but it will suffice
+        """
+        if AccademicYear.objects.filter(startdate__lte=self.startdate, enddate__gte=self.startdate):
+            raise ValidationError(_('You cannot create overlapping date ranges.'))
+        if AccademicYear.objects.filter(startdate__lte=self.enddate, enddate__gte=self.enddate):
+            raise ValidationError(_('You cannot create overlapping date ranges.'))
+
     class Meta:
         ordering = ['-displayyear']
 
@@ -36,13 +48,13 @@ class HousePoints(models.Model):
     displayyear = models.ForeignKey(AccademicYear, on_delete=models.PROTECT, verbose_name="Academic Year", default=get_current_year())
     submitby = models.CharField(verbose_name="Submitted by", max_length=50)
     deleted = models.BooleanField(default=False)
-    
+
     def __str__(self):
         return ("Points inserted on {} by {}".format(
             self.datesubmitted,
             self.submitby
         ))
-    
+
     def clean(self):
         if self.pantlin + self.firman + self.goodman == 0:
             raise ValidationError(_('You must enter at least one non-zero value.'))
